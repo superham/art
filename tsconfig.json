@@ -16,7 +16,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@art": ["./public/art/*"]
+      "@art/*": ["./public/art/*"],
+      "@use/*": ["./src/use/*"]
     }
   },
   "include": ["src", "./src/index.d.ts"]

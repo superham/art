@@ -16,21 +16,32 @@ import stormySkys3 from "../../assets/art/stormySkys3.jpeg";
 import susan from "../../assets/art/susan.jpeg";
 import tree from "../../assets/art/tree.jpeg";
 import witch from "../../assets/art/witch.jpeg";
+import useWindowDimensions from "../../use/useWindowDimensions";
 
 export default function TitlebarBelowImageList() {
-  const theme = useTheme();
+  const { width } = useWindowDimensions();
+  let columnCount = 3;
 
-  const matchDownMd = useMediaQuery(theme.breakpoints.down("sm"));
+  if (width < 756) {
+    columnCount = 2;
+  }
+
+  const imageListContainerWidth = width * 0.75;
 
   return (
-    <ImageList sx={{ width: 900, height: 1000 }} cols={matchDownMd ? 1 : 2}>
+    <ImageList
+      sx={{ width: { imageListContainerWidth }, height: "100%" }}
+      variant='masonry'
+      cols={columnCount}
+      gap={16}
+    >
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
-          <img src={item.img} alt={item.title} loading='lazy' />
-          <ImageListItemBar
-            title={item.title}
-            subtitle={<span>by: {item.author}</span>}
-            position='below'
+          <img
+            srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
+            src={`${item.img}?w=161&fit=crop&auto=format`}
+            alt={item.title}
+            loading='lazy'
           />
         </ImageListItem>
       ))}
