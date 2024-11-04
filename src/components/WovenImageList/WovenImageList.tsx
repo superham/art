@@ -17,16 +17,50 @@ import susan from "../../assets/art/susan.jpeg";
 import tree from "../../assets/art/tree.jpeg";
 import witch from "../../assets/art/witch.jpeg";
 import useWindowDimensions from "../../use/useWindowDimensions";
+// import InspectImage from "../InspectImage/InspectImage";
+import Popover from "@mui/material/Popover";
 
 export default function TitlebarBelowImageList() {
   const { width } = useWindowDimensions();
-  let columnCount = 3;
+  const [anchorEl, setAnchorEl] = React.useState<HTMLImageElement | null>(null);
 
-  if (width < 756) {
+  const imageListContainerWidth = width * 0.75;
+
+  let columnCount = 3;
+  if (width <= 375) {
+    columnCount = 1;
+  } else if (width < 756) {
     columnCount = 2;
   }
 
-  const imageListContainerWidth = width * 0.75;
+  const handleClick = (event: React.MouseEvent<HTMLImageElement>) => {
+    setAnchorEl(event.currentTarget);
+
+    inspectImage();
+
+    console.log("clicked");
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
+  function inspectImage() {
+    <Popover
+      id={"simple-image-popover"}
+      open={open}
+      anchorEl={anchorEl}
+      onClose={handleClose}
+      anchorOrigin={{
+        vertical: "center",
+        horizontal: "center",
+      }}
+    >
+      {"The content of the Popover."}
+    </Popover>;
+  }
 
   return (
     <ImageList
@@ -42,7 +76,10 @@ export default function TitlebarBelowImageList() {
             src={`${item.img}?w=161&fit=crop&auto=format`}
             alt={item.title}
             loading='lazy'
+            onClick={handleClick}
           />
+          {/* <InspectImage isOpen={true} item={item} /> */}
+          {/* <InspectImage imageStr={item.img} /> */}
         </ImageListItem>
       ))}
     </ImageList>
