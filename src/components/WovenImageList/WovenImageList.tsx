@@ -17,16 +17,34 @@ import susan from "../../assets/art/susan.jpeg";
 import tree from "../../assets/art/tree.jpeg";
 import witch from "../../assets/art/witch.jpeg";
 import useWindowDimensions from "../../use/useWindowDimensions";
+// import InspectImage from "../InspectImage/InspectImage";
+import Popover from "@mui/material/Popover";
+import InspectImage from "../InspectImage/InspectImage";
+import { useState } from "react";
 
 export default function TitlebarBelowImageList() {
   const { width } = useWindowDimensions();
-  let columnCount = 3;
+  const [anchorEl, setAnchorEl] = React.useState<HTMLImageElement | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const imageListContainerWidth = width * 0.75;
 
-  if (width < 756) {
+  let columnCount = 3;
+  if (width <= 375) {
+    columnCount = 1;
+  } else if (width < 756) {
     columnCount = 2;
   }
 
-  const imageListContainerWidth = width * 0.75;
+  const handleClick = (img: string) => {
+    setSelectedImage(img);
+
+    console.log("clicked");
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    setSelectedImage(null);
+  };
 
   return (
     <ImageList
@@ -38,11 +56,22 @@ export default function TitlebarBelowImageList() {
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
-            srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
-            src={`${item.img}?w=161&fit=crop&auto=format`}
+            src={item.img}
             alt={item.title}
             loading='lazy'
+            onClick={() => handleClick(item.img)}
           />
+          <Popover
+            id={"simple-popover"}
+            anchorReference='anchorPosition'
+            // anchorPosition={{ top: 0, left: width / 2 }}
+            anchorPosition={{ top: 0, left: width * 0.25 }}
+            open={selectedImage === item.img}
+            hideBackdrop={false}
+            onClose={handleClose}
+          >
+            <InspectImage artImg={item.img} />
+          </Popover>
         </ImageListItem>
       ))}
     </ImageList>
