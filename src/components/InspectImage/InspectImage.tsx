@@ -1,48 +1,17 @@
-import * as React from "react";
-import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-
 interface InspectImageProps {
-  isOpen: boolean;
-  item: { img: string; title: string; author: string };
+  artImg: string;
 }
 
-export default function InspectImage({ isOpen, item }: InspectImageProps) {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLImageElement | null>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLImageElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
-
+export default function InspectImage({ artImg }: InspectImageProps) {
   return (
-    <>
+    <div>
       <img
-        srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
-        src={`${item.img}?w=161&fit=crop&auto=format`}
-        alt={item.title}
+        src={artImg}
+        alt={"abc"}
         loading='lazy'
-        onClick={handleClick}
+        onClick={() => console.log("clicked")}
+        style={{ width: "100%", height: "100%" }}
       />
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "center",
-        }}
-      >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-      </Popover>
-    </>
+    </div>
   );
 }

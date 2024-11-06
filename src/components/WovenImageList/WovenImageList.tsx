@@ -19,11 +19,13 @@ import witch from "../../assets/art/witch.jpeg";
 import useWindowDimensions from "../../use/useWindowDimensions";
 // import InspectImage from "../InspectImage/InspectImage";
 import Popover from "@mui/material/Popover";
+import InspectImage from "../InspectImage/InspectImage";
+import { useState } from "react";
 
 export default function TitlebarBelowImageList() {
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const [anchorEl, setAnchorEl] = React.useState<HTMLImageElement | null>(null);
-
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageListContainerWidth = width * 0.75;
 
   let columnCount = 3;
@@ -33,34 +35,18 @@ export default function TitlebarBelowImageList() {
     columnCount = 2;
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLImageElement>) => {
-    setAnchorEl(event.currentTarget);
-
-    inspectImage();
+  const handleClick = (img: string) => {
+    setSelectedImage(img);
 
     console.log("clicked");
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+    setSelectedImage(null);
   };
 
   const open = Boolean(anchorEl);
-
-  function inspectImage() {
-    <Popover
-      id={"simple-image-popover"}
-      open={open}
-      anchorEl={anchorEl}
-      onClose={handleClose}
-      anchorOrigin={{
-        vertical: "center",
-        horizontal: "center",
-      }}
-    >
-      {"The content of the Popover."}
-    </Popover>;
-  }
 
   return (
     <ImageList
@@ -72,14 +58,20 @@ export default function TitlebarBelowImageList() {
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
-            srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
-            src={`${item.img}?w=161&fit=crop&auto=format`}
+            src={item.img}
             alt={item.title}
             loading='lazy'
-            onClick={handleClick}
+            onClick={() => handleClick(item.img)}
           />
-          {/* <InspectImage isOpen={true} item={item} /> */}
-          {/* <InspectImage imageStr={item.img} /> */}
+          <Popover
+            id={"simple-popover"}
+            anchorReference='anchorPosition'
+            anchorPosition={{ top: 0, left: 0 }}
+            open={selectedImage === item.img}
+            onClose={handleClose}
+          >
+            <InspectImage artImg={item.img} />
+          </Popover>
         </ImageListItem>
       ))}
     </ImageList>
