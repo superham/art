@@ -1,9 +1,6 @@
 import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
-import { useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import darkColors from "../../assets/art/darkColors.jpeg";
 import fallLake from "../../assets/art/fallLake.jpeg";
 import fallStuff from "../../assets/art/fallStuff.jpeg";
@@ -17,13 +14,12 @@ import susan from "../../assets/art/susan.jpeg";
 import tree from "../../assets/art/tree.jpeg";
 import witch from "../../assets/art/witch.jpeg";
 import useWindowDimensions from "../../use/useWindowDimensions";
-// import InspectImage from "../InspectImage/InspectImage";
 import Popover from "@mui/material/Popover";
 import InspectImage from "../InspectImage/InspectImage";
 import { useState } from "react";
 
 export default function TitlebarBelowImageList() {
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [anchorEl, setAnchorEl] = React.useState<HTMLImageElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageListContainerWidth = width * 0.75;
@@ -46,8 +42,6 @@ export default function TitlebarBelowImageList() {
     setSelectedImage(null);
   };
 
-  const open = Boolean(anchorEl);
-
   return (
     <ImageList
       sx={{ width: { imageListContainerWidth }, height: "100%" }}
@@ -68,9 +62,21 @@ export default function TitlebarBelowImageList() {
             anchorReference='anchorPosition'
             anchorPosition={{ top: 0, left: 0 }}
             open={selectedImage === item.img}
+            BackdropProps={
+              selectedImage === item.img
+                ? { sx: { backdropFilter: "blur(5px)" } }
+                : {}
+            }
+            PaperProps={{
+              sx: {
+                backgroundColor: "transparent",
+                boxShadow: "none",
+                height: "auto",
+              },
+            }}
             onClose={handleClose}
           >
-            <InspectImage artImg={item.img} />
+            <InspectImage artImg={item.img} onClose={handleClose} />
           </Popover>
         </ImageListItem>
       ))}
