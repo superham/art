@@ -30,7 +30,7 @@ export default function InspectImage({ artImg, onClose }: InspectImageProps) {
     >
       <img
         src={artImg}
-        alt={"abc"}
+        alt={"abc"} // TODO: USE THIS LATER TO DISPLAY ARTIST NAME
         loading='lazy'
         onClick={() => console.log("clicked")}
         style={{

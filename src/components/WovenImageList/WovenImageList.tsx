@@ -60,7 +60,8 @@ export default function TitlebarBelowImageList() {
           <Popover
             id={"simple-popover"}
             anchorReference='anchorPosition'
-            anchorPosition={{ top: 0, left: 0 }}
+            // anchorPosition={{ top: 0, left: width / 2 }}
+            anchorPosition={{ top: 0, left: width * 0.25 }}
             open={selectedImage === item.img}
             BackdropProps={
               selectedImage === item.img
