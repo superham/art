@@ -23,7 +23,7 @@ import InspectImage from "../InspectImage/InspectImage";
 import { useState } from "react";
 
 export default function TitlebarBelowImageList() {
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [anchorEl, setAnchorEl] = React.useState<HTMLImageElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageListContainerWidth = width * 0.75;
@@ -46,8 +46,6 @@ export default function TitlebarBelowImageList() {
     setSelectedImage(null);
   };
 
-  const open = Boolean(anchorEl);
-
   return (
     <ImageList
       sx={{ width: { imageListContainerWidth }, height: "100%" }}
@@ -66,8 +64,10 @@ export default function TitlebarBelowImageList() {
           <Popover
             id={"simple-popover"}
             anchorReference='anchorPosition'
-            anchorPosition={{ top: 0, left: 0 }}
+            // anchorPosition={{ top: 0, left: width / 2 }}
+            anchorPosition={{ top: 0, left: width * 0.25 }}
             open={selectedImage === item.img}
+            hideBackdrop={false}
             onClose={handleClose}
           >
             <InspectImage artImg={item.img} />
