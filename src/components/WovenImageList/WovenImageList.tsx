@@ -16,7 +16,7 @@ import witch from "../../assets/art/witch.jpeg";
 import useWindowDimensions from "../../use/useWindowDimensions";
 import Popover from "@mui/material/Popover";
 import InspectImage from "../InspectImage/InspectImage";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function TitlebarBelowImageList() {
   const { width } = useWindowDimensions();
@@ -24,8 +24,19 @@ export default function TitlebarBelowImageList() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageListContainerWidth = width * 0.75;
 
+  // Prevent right-click
+  useEffect(() => {
+    const handleContextmenu = (e: any) => {
+      e.preventDefault();
+    };
+    document.addEventListener("contextmenu", handleContextmenu);
+    return function cleanup() {
+      document.removeEventListener("contextmenu", handleContextmenu);
+    };
+  }, []);
+
   let columnCount = 3;
-  if (width <= 375) {
+  if (width <= 500) {
     columnCount = 1;
   } else if (width < 756) {
     columnCount = 2;
@@ -50,7 +61,7 @@ export default function TitlebarBelowImageList() {
       gap={16}
     >
       {itemData.map((item) => (
-        <ImageListItem key={item.img}>
+        <ImageListItem key={item.img} style={{ border: "1px black" }}>
           <img
             src={item.img}
             alt={item.title}
@@ -60,7 +71,6 @@ export default function TitlebarBelowImageList() {
           <Popover
             id={"simple-popover"}
             anchorReference='anchorPosition'
-            // anchorPosition={{ top: 0, left: width / 2 }}
             anchorPosition={{ top: 0, left: width * 0.25 }}
             open={selectedImage === item.img}
             BackdropProps={
@@ -77,7 +87,11 @@ export default function TitlebarBelowImageList() {
             }}
             onClose={handleClose}
           >
-            <InspectImage artImg={item.img} onClose={handleClose} />
+            <InspectImage
+              artImg={item.img}
+              onClose={handleClose}
+              artInfo={{ title: item.title }}
+            />
           </Popover>
         </ImageListItem>
       ))}
