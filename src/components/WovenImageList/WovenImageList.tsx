@@ -16,13 +16,14 @@ import witch from "../../assets/art/witch.jpeg";
 import useWindowDimensions from "../../use/useWindowDimensions";
 import Popover from "@mui/material/Popover";
 import InspectImage from "../InspectImage/InspectImage";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function TitlebarBelowImageList() {
-  const { width } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
   const [anchorEl, setAnchorEl] = React.useState<HTMLImageElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageListContainerWidth = width * 0.75;
+  const [leftOffset, setLeftOffset] = useState(0);
 
   // Prevent right-click
   useEffect(() => {
@@ -69,9 +70,9 @@ export default function TitlebarBelowImageList() {
             onClick={() => handleClick(item.img)}
           />
           <Popover
-            id={"simple-popover"}
+            id={"inspect-image-popover"}
             anchorReference='anchorPosition'
-            anchorPosition={{ top: 0, left: width * 0.25 }}
+            anchorPosition={{ top: 0, left: 0 }}
             open={selectedImage === item.img}
             BackdropProps={
               selectedImage === item.img
@@ -87,11 +88,23 @@ export default function TitlebarBelowImageList() {
             }}
             onClose={handleClose}
           >
-            <InspectImage
-              artImg={item.img}
-              onClose={handleClose}
-              artInfo={{ title: item.title }}
-            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: width - 16,
+                height: height - 16,
+              }}
+              onClick={handleClose}
+            >
+              <InspectImage
+                artImg={item.img}
+                onClose={handleClose}
+                artInfo={{ title: item.title }}
+                setLeftOffset={setLeftOffset}
+              />
+            </div>
           </Popover>
         </ImageListItem>
       ))}

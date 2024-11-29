@@ -1,5 +1,8 @@
+import { Dispatch, SetStateAction } from "react";
 import useWindowDimensions from "../../use/useWindowDimensions";
 import Tag from "../Tag/Tag";
+import { useImageSize } from "react-image-size";
+
 interface InspectImageProps {
   artImg: string;
   onClose: () => void;
@@ -7,33 +10,63 @@ interface InspectImageProps {
     title: string;
     desc?: string;
   };
+  setLeftOffset: Dispatch<SetStateAction<number>>;
 }
 
 export default function InspectImage({
   artImg,
   onClose,
   artInfo,
+  setLeftOffset,
 }: InspectImageProps) {
-  const { width } = useWindowDimensions();
-  const isMd = width <= 756;
-  const isXS = width <= 375;
+  const [dimensions, { loading, error }] = useImageSize(artImg);
+  const { height, width } = useWindowDimensions();
 
-  let imageWidth = "70%";
-  if (isMd) {
-    imageWidth = "85%";
-  } else if (isXS) {
-    imageWidth = "100%";
+  console.log("dimensions");
+  console.log(`height: ${dimensions?.height}`);
+  console.log(`width: ${dimensions?.width}`);
+  console.log("window");
+  console.log(`height: ${height}`);
+  console.log(`width: ${width}`);
+
+  if (width <= dimensions?.width!) {
+    console.log("image is too wide");
+    console.log(`image width is ${dimensions?.width! / width}`);
+  }
+
+  if (height <= dimensions?.height!) {
+    console.log("image is too tall");
+    console.log(`image height is ${dimensions?.height! / height}`);
+  }
+
+  const heightRatio = dimensions?.height! / height;
+  const widthRatio = dimensions?.width! / width;
+
+  const leftOffset = (width - dimensions?.width!) / 2;
+  setLeftOffset(leftOffset);
+
+  const imageHeight = dimensions?.height! / heightRatio;
+  const imageWidth = dimensions?.width! / widthRatio;
+
+  let style = {};
+
+  if (heightRatio >= widthRatio) {
+    style = {
+      height: `${imageHeight - 100}px`, // -100px for tag
+      width: "auto",
+    };
+  } else {
+    style = {
+      height: "auto",
+      width: `${imageWidth}px`,
+    };
   }
 
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
-        transition: "box-shadow 0.2s ease-in-out",
+        // transition: "box-shadow 0.2s ease-in-out",
+        scrollbarWidth: "none", // Firefox
       }}
       onClick={onClose}
     >
@@ -42,12 +75,13 @@ export default function InspectImage({
         alt={"abc"} // TODO: USE THIS LATER TO DISPLAY ARTIST NAME
         loading='lazy'
         onClick={() => console.log("clicked")}
-        style={{
-          width: imageWidth,
-          height: "auto",
-        }}
+        style={style}
       />
-      <Tag title={artInfo?.title} desc={artInfo?.desc} width={imageWidth} />
+      <Tag title={artInfo?.title} desc={artInfo?.desc} width={"auto"} />
     </div>
   );
 }
+
+// in order to find offsets need to know final image size vs screen size
+
+// left offsett = windowSize - imageSize / 2
