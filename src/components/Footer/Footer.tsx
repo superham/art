@@ -3,7 +3,7 @@ import "./Footer.css";
 export default function Footer() {
   return (
     <div className='footer-container'>
-      <hr />
+      <hr className='footer-divider' />
       <div className='footer-text'>
         'Hi name is Shannon, i like to make art and stuff'
       </div>

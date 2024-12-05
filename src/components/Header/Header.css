@@ -2,7 +2,7 @@
   margin-top: 1rem;
 }
 
-.hero-stack {
+.header-stack {
   text-align: center;
 }
 
@@ -10,18 +10,43 @@
   align-items: center;
 }
 
-.hero-container {
+.header-container {
   margin-top: 1rem;
   margin-bottom: 1rem;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.header-wrapper {
   position: sticky;
   top: 0;
-  flex-wrap: wrap;
+}
+
+.header-divider {
+  display: none;
+}
+
+@media (max-width: 756px) {
+  .header-container {
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-divider {
+    width: 80%;
+    display: block;
+  }
 }
 
 .link-container {
   display: flex;
   justify-content: center;
   margin-top: 1rem;
-  margin-left: auto;
+}
+
+.name {
+  /* margin-right: auto; */
+  padding-right: auto;
 }

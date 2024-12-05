@@ -12,15 +12,19 @@ export function Header() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container className='hero-container'>
-        <Typography variant='h3'>Shannon Ilg</Typography>
-        <div className='link-container'>
-          <Button variant='text'>About</Button>
-          <Button variant='text'>Commissions</Button>
-          <Button variant='text'>Contact</Button>
-          <Button variant='text'>Print Store</Button>
-        </div>
-      </Container>
+      <div className='header-wrapper'>
+        <Container className='header-container'>
+          <Typography variant='h3' className='name'>
+            Shannon Ilg
+          </Typography>
+          <div className='link-container'>
+            <Button variant='text'>About</Button>
+            <Button variant='text'>Contact</Button>
+            <Button variant='text'>Print Store</Button>
+          </div>
+        </Container>
+        <hr className='header-divider' />
+      </div>
     </ThemeProvider>
   );
 }
