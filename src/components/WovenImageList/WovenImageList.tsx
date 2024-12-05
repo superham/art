@@ -56,7 +56,12 @@ export default function TitlebarBelowImageList() {
 
   return (
     <ImageList
-      sx={{ width: { imageListContainerWidth }, height: "100%" }}
+      sx={{
+        width: { imageListContainerWidth },
+        height: "100%",
+        zIndex: 1,
+        background: "white",
+      }}
       variant='masonry'
       cols={columnCount}
       gap={16}
@@ -94,7 +99,7 @@ export default function TitlebarBelowImageList() {
                 justifyContent: "center",
                 alignItems: "center",
                 width: width - 16,
-                height: height - 16,
+                height: "100%",
               }}
               onClick={handleClose}
             >
