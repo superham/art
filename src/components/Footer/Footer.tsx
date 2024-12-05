@@ -1,5 +1,14 @@
+import "./Footer.css";
+
 export default function Footer() {
-  return <></>;
+  return (
+    <div className='footer-container'>
+      <hr />
+      <div className='footer-text'>
+        'Hi name is Shannon, i like to make art and stuff'
+      </div>
+    </div>
+  );
   // copywrite notice
   // social media links
   // contact info

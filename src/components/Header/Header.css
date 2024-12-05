@@ -1,0 +1,27 @@
+.container {
+  margin-top: 1rem;
+}
+
+.hero-stack {
+  text-align: center;
+}
+
+.link-stack {
+  align-items: center;
+}
+
+.hero-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  position: sticky;
+  top: 0;
+  flex-wrap: wrap;
+}
+
+.link-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-left: auto;
+}
