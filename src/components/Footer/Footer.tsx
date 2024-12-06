@@ -1,13 +1,22 @@
 import "./Footer.css";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 export default function Footer() {
+  const theme = createTheme({
+    typography: {
+      fontFamily: ["Roboto", "sans-serif"].join(","),
+    },
+  });
+
   return (
-    <div className='footer-container'>
-      <hr className='footer-divider' />
-      <div className='footer-text'>
-        'Hi name is Shannon, i like to make art and stuff'
+    <ThemeProvider theme={theme}>
+      <div className='footer-container'>
+        <hr className='footer-divider' />
+        <div className='footer-text' id='about-section'>
+          'Hi name is Shannon, i like to make art and stuff'
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
   // copywrite notice
   // social media links
