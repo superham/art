@@ -5,9 +5,11 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
   TextField,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { MuiTelInput } from "mui-tel-input";
 
 export function Contact() {
   const [open, setOpen] = useState(true);
@@ -105,16 +107,16 @@ export function Contact() {
               error={!!errors.email}
               helperText={errors.email}
             />
-            <TextField
-              margin='dense'
-              label='Phone Number'
-              type='tel'
-              fullWidth
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              error={!!errors.phoneNumber}
-              helperText={errors.phoneNumber}
-            />
+            <FormControl sx={{ marginTop: "8px", marginBottom: "4px" }}>
+              <MuiTelInput
+                defaultCountry='US'
+                value={phoneNumber}
+                onChange={setPhoneNumber}
+                fullWidth
+                error={!!errors.phoneNumber}
+                helperText={errors.phoneNumber}
+              />
+            </FormControl>
             <TextField
               margin='dense'
               label='Message'
