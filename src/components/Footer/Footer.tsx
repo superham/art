@@ -1,5 +1,6 @@
 import "./Footer.css";
 import { createTheme, ThemeProvider } from "@mui/material";
+import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 
 export default function Footer() {
   const theme = createTheme({

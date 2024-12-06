@@ -54,9 +54,11 @@ export default function InspectImage({
     style = {
       height: `${imageHeight - 100}px`, // -100px for tag
       width: "auto",
+      maxWidth: "1280px",
     };
   } else {
     style = {
+      maxWidth: "1280px",
       height: "auto",
       width: `${imageWidth}px`,
     };
@@ -65,7 +67,7 @@ export default function InspectImage({
   return (
     <div
       style={{
-        // transition: "box-shadow 0.2s ease-in-out",
+        transition: "box-shadow 0.2s ease-in-out",
         scrollbarWidth: "none", // Firefox
       }}
       onClick={onClose}
