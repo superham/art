@@ -19,26 +19,6 @@ export function Header() {
   return (
     <ThemeProvider theme={theme}>
       <div className='header-wrapper'>
-        <Popover
-          open={isPopoverOpen}
-          onClose={() => {
-            setIsPopoverOpen(false);
-            console.log(buttonRef);
-            if (buttonRef.current) buttonRef.current.focus();
-          }}
-          anchorReference='anchorPosition'
-          anchorPosition={{ top: 0, left: 0 }}
-          PaperProps={{
-            sx: {
-              backgroundColor: "transparent",
-              boxShadow: "none",
-              height: "auto",
-            },
-          }}
-        >
-          <Contact buttonRef={buttonRef} />
-        </Popover>
-
         <Container className='header-container'>
           <Typography variant='h3' className='name'>
             Shannon Ilg
@@ -54,7 +34,6 @@ export function Header() {
               onClick={() => {
                 setIsPopoverOpen(true);
               }}
-              ref={buttonRef}
             >
               Contact
             </Button>
@@ -64,6 +43,24 @@ export function Header() {
         </Container>
         <hr className='header-divider' />
       </div>
+
+      <Popover
+        open={isPopoverOpen}
+        onClose={() => {
+          setIsPopoverOpen(false);
+        }}
+        anchorReference='anchorPosition'
+        anchorPosition={{ top: 0, left: 0 }}
+        PaperProps={{
+          sx: {
+            backgroundColor: "transparent",
+            boxShadow: "none",
+            height: "auto",
+          },
+        }}
+      >
+        <Contact setIsPopoverOpen={setIsPopoverOpen} />
+      </Popover>
     </ThemeProvider>
   );
 }

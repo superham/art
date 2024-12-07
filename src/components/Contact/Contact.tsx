@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, useState } from "react";
 import {
   Button,
   Dialog,
@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
+import { SetStateAction } from "react";
 
 const theme = createTheme({
   typography: {
@@ -17,10 +18,10 @@ const theme = createTheme({
 });
 
 interface ContactProps {
-  buttonRef: React.RefObject<HTMLButtonElement>;
+  setIsPopoverOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function Contact({ buttonRef }: ContactProps) {
+export function Contact({ setIsPopoverOpen }: ContactProps) {
   const [open, setOpen] = useState(true);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -73,9 +74,7 @@ export function Contact({ buttonRef }: ContactProps) {
 
   const handleClose = () => {
     setOpen(false);
-    if (buttonRef.current) {
-      buttonRef.current.focus();
-    }
+    setIsPopoverOpen(false);
   };
 
   const handleSubmit = () => {
