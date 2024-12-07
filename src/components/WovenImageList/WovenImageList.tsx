@@ -20,7 +20,7 @@ import { useState, useEffect, useRef } from "react";
 
 export default function TitlebarBelowImageList() {
   const { height, width } = useWindowDimensions();
-  const [anchorEl, setAnchorEl] = React.useState<HTMLImageElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageListContainerWidth = width * 0.75;
   const [leftOffset, setLeftOffset] = useState(0);
@@ -43,9 +43,14 @@ export default function TitlebarBelowImageList() {
     columnCount = 2;
   }
 
-  const handleClick = (img: string) => {
-    setSelectedImage(img);
+  interface HandleClickProps {
+    img: string;
+    title: string;
+  }
 
+  const handleClick = ({ img, title }: HandleClickProps) => {
+    setSelectedImage(img);
+    setAnchorEl(document.getElementById(`image-${title}`)!);
     console.log("clicked");
   };
 
@@ -53,6 +58,8 @@ export default function TitlebarBelowImageList() {
     setAnchorEl(null);
     setSelectedImage(null);
   };
+
+  // create a ref to the image list container for all images? no
 
   return (
     <ImageList
@@ -72,13 +79,13 @@ export default function TitlebarBelowImageList() {
             src={item.img}
             alt={item.title}
             loading='lazy'
-            onClick={() => handleClick(item.img)}
+            onClick={() => handleClick({ img: item.img, title: item.title })}
+            id={`image-${item.title}`}
           />
           <Popover
             id={"inspect-image-popover"}
-            anchorReference='anchorPosition'
-            anchorPosition={{ top: 0, left: 0 }}
             open={selectedImage === item.img}
+            anchorEl={anchorEl}
             BackdropProps={
               selectedImage === item.img
                 ? { sx: { backdropFilter: "blur(5px)" } }

@@ -50,13 +50,25 @@ export default function InspectImage({
 
   let style = {};
 
+  // check if width is greater than 80% of screen width
+
+  let maxWidth =
+    dimensions?.width! >= width * 0.8 ? width * 0.8 : dimensions?.width!;
+  console.log(`maxWidth: ${maxWidth}`);
+
+  if (width <= 756) {
+    maxWidth = width * 0.9;
+  }
+
   if (heightRatio >= widthRatio) {
     style = {
       height: `${imageHeight - 100}px`, // -100px for tag
       width: "auto",
+      maxWidth: maxWidth,
     };
   } else {
     style = {
+      maxWidth: maxWidth,
       height: "auto",
       width: `${imageWidth}px`,
     };
@@ -65,7 +77,7 @@ export default function InspectImage({
   return (
     <div
       style={{
-        // transition: "box-shadow 0.2s ease-in-out",
+        transition: "box-shadow 0.2s ease-in-out",
         scrollbarWidth: "none", // Firefox
       }}
       onClick={onClose}

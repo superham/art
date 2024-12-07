@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { Dispatch, useState } from "react";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
   TextField,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
+import { SetStateAction } from "react";
 
-export function Contact() {
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Roboto", "sans-serif"].join(","),
+  },
+});
+
+interface ContactProps {
+  setIsPopoverOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export function Contact({ setIsPopoverOpen }: ContactProps) {
   const [open, setOpen] = useState(true);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -64,6 +74,7 @@ export function Contact() {
 
   const handleClose = () => {
     setOpen(false);
+    setIsPopoverOpen(false);
   };
 
   const handleSubmit = () => {
@@ -73,12 +84,6 @@ export function Contact() {
       handleClose();
     }
   };
-
-  const theme = createTheme({
-    typography: {
-      fontFamily: ["Roboto", "sans-serif"].join(","),
-    },
-  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -107,16 +112,14 @@ export function Contact() {
               error={!!errors.email}
               helperText={errors.email}
             />
-            <FormControl sx={{ marginTop: "8px", marginBottom: "4px" }}>
-              <MuiTelInput
-                defaultCountry='US'
-                value={phoneNumber}
-                onChange={setPhoneNumber}
-                fullWidth
-                error={!!errors.phoneNumber}
-                helperText={errors.phoneNumber}
-              />
-            </FormControl>
+            <MuiTelInput
+              defaultCountry='US'
+              value={phoneNumber}
+              onChange={setPhoneNumber}
+              fullWidth
+              error={!!errors.phoneNumber}
+              helperText={errors.phoneNumber}
+            />
             <TextField
               margin='dense'
               label='Message'
@@ -131,12 +134,8 @@ export function Contact() {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color='primary'>
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit} color='primary'>
-              Submit
-            </Button>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleSubmit}>Submit</Button>
           </DialogActions>
         </Dialog>
       </div>

@@ -25,7 +25,6 @@ export default function Tag({ title, desc, type, width, year }: TagProps) {
           width: width,
           backgroundColor: "white",
           textAlign: "center",
-          height: "50px",
           borderRadius: "5px",
           marginTop: "8px",
         }}
