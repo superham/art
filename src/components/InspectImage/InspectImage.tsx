@@ -19,7 +19,7 @@ export default function InspectImage({
   artInfo,
   setLeftOffset,
 }: InspectImageProps) {
-  const [dimensions, { loading, error }] = useImageSize(artImg);
+  const [dimensions] = useImageSize(artImg);
   const { height, width } = useWindowDimensions();
 
   console.log("dimensions");
