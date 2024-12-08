@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { Button } from "@mui/material";
 import Contact from "../Contact/Contact";
 import Popover from "@mui/material/Popover";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 const theme = createTheme({
   typography: {
@@ -14,7 +14,6 @@ const theme = createTheme({
 
 export function Header() {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <ThemeProvider theme={theme}>

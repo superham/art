@@ -16,14 +16,14 @@ import witch from "../../assets/art/witch.jpeg";
 import useWindowDimensions from "../../use/useWindowDimensions";
 import Popover from "@mui/material/Popover";
 import InspectImage from "../InspectImage/InspectImage";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 export default function TitlebarBelowImageList() {
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageListContainerWidth = width * 0.75;
-  const [leftOffset, setLeftOffset] = useState(0);
+  const [, setLeftOffset] = useState(0);
 
   // Prevent right-click
   useEffect(() => {
