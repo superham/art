@@ -1,6 +1,6 @@
 {
   "name": "art",
-  "version": "0.2.0",
+  "version": "0.8.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.3",
