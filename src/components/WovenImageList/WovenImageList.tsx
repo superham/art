@@ -18,12 +18,11 @@ import Popover from "@mui/material/Popover";
 import InspectImage from "../InspectImage/InspectImage";
 import { useState, useEffect } from "react";
 
-export default function TitlebarBelowImageList() {
+export default function WovenImageList() {
   const { width } = useWindowDimensions();
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageListContainerWidth = width * 0.75;
-  const [, setLeftOffset] = useState(0);
 
   // Prevent right-click
   useEffect(() => {
@@ -51,7 +50,6 @@ export default function TitlebarBelowImageList() {
   const handleClick = ({ img, title }: HandleClickProps) => {
     setSelectedImage(img);
     setAnchorEl(document.getElementById(`image-${title}`)!);
-    console.log("clicked");
   };
 
   const handleClose = () => {
@@ -114,7 +112,6 @@ export default function TitlebarBelowImageList() {
                 artImg={item.img}
                 onClose={handleClose}
                 artInfo={{ title: item.title }}
-                setLeftOffset={setLeftOffset}
               />
             </div>
           </Popover>

@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import useWindowDimensions from "../../use/useWindowDimensions";
 import Tag from "../Tag/Tag";
 import { useImageSize } from "react-image-size";
@@ -10,40 +9,38 @@ interface InspectImageProps {
     title: string;
     desc?: string;
   };
-  setLeftOffset: Dispatch<SetStateAction<number>>;
 }
 
 export default function InspectImage({
   artImg,
   onClose,
   artInfo,
-  setLeftOffset,
 }: InspectImageProps) {
   const [dimensions] = useImageSize(artImg);
   const { height, width } = useWindowDimensions();
 
-  console.log("dimensions");
-  console.log(`height: ${dimensions?.height}`);
-  console.log(`width: ${dimensions?.width}`);
-  console.log("window");
-  console.log(`height: ${height}`);
-  console.log(`width: ${width}`);
+  // console.log("dimensions");
+  // console.log(`height: ${dimensions?.height}`);
+  // console.log(`width: ${dimensions?.width}`);
+  // console.log("window");
+  // console.log(`height: ${height}`);
+  // console.log(`width: ${width}`);
 
-  if (width <= dimensions?.width!) {
-    console.log("image is too wide");
-    console.log(`image width is ${dimensions?.width! / width}`);
-  }
+  // if (width <= dimensions?.width!) {
+  //   console.log("image is too wide");
+  //   console.log(`image width is ${dimensions?.width! / width}`);
+  // }
 
-  if (height <= dimensions?.height!) {
-    console.log("image is too tall");
-    console.log(`image height is ${dimensions?.height! / height}`);
-  }
+  // if (height <= dimensions?.height!) {
+  //   console.log("image is too tall");
+  //   console.log(`image height is ${dimensions?.height! / height}`);
+  // }
 
   const heightRatio = dimensions?.height! / height;
   const widthRatio = dimensions?.width! / width;
 
-  const leftOffset = (width - dimensions?.width!) / 2;
-  setLeftOffset(leftOffset);
+  // const leftOffset = (width - dimensions?.width!) / 2;
+  // setLeftOffset(leftOffset);
 
   const imageHeight = dimensions?.height! / heightRatio;
   const imageWidth = dimensions?.width! / widthRatio;
@@ -54,7 +51,7 @@ export default function InspectImage({
 
   let maxWidth =
     dimensions?.width! >= width * 0.8 ? width * 0.8 : dimensions?.width!;
-  console.log(`maxWidth: ${maxWidth}`);
+  // console.log(`maxWidth: ${maxWidth}`);
 
   if (width <= 756) {
     maxWidth = width * 0.9;
