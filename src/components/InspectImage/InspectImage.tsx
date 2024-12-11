@@ -43,7 +43,7 @@ export default function InspectImage({
   const widthRatio = dimensions?.width! / width;
 
   const leftOffset = (width - dimensions?.width!) / 2;
-  setLeftOffset(leftOffset);
+  // setLeftOffset(leftOffset);
 
   const imageHeight = dimensions?.height! / heightRatio;
   const imageWidth = dimensions?.width! / widthRatio;
