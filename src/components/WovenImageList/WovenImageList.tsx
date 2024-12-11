@@ -23,7 +23,6 @@ export default function WovenImageList() {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageListContainerWidth = width * 0.75;
-  const [, setLeftOffset] = useState(0);
 
   // Prevent right-click
   useEffect(() => {
@@ -113,7 +112,6 @@ export default function WovenImageList() {
                 artImg={item.img}
                 onClose={handleClose}
                 artInfo={{ title: item.title }}
-                setLeftOffset={setLeftOffset}
               />
             </div>
           </Popover>

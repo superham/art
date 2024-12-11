@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import useWindowDimensions from "../../use/useWindowDimensions";
 import Tag from "../Tag/Tag";
 import { useImageSize } from "react-image-size";
@@ -10,14 +9,12 @@ interface InspectImageProps {
     title: string;
     desc?: string;
   };
-  setLeftOffset: Dispatch<SetStateAction<number>>;
 }
 
 export default function InspectImage({
   artImg,
   onClose,
   artInfo,
-  setLeftOffset,
 }: InspectImageProps) {
   const [dimensions] = useImageSize(artImg);
   const { height, width } = useWindowDimensions();
@@ -42,7 +39,7 @@ export default function InspectImage({
   const heightRatio = dimensions?.height! / height;
   const widthRatio = dimensions?.width! / width;
 
-  const leftOffset = (width - dimensions?.width!) / 2;
+  // const leftOffset = (width - dimensions?.width!) / 2;
   // setLeftOffset(leftOffset);
 
   const imageHeight = dimensions?.height! / heightRatio;
