@@ -6,6 +6,7 @@ import { smScreen } from "../../constants/constants";
 import useWindowDimensions from "../../use/useWindowDimensions";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import { Typography } from "@mui/material";
 
 export default function Footer() {
   const { width } = useWindowDimensions();
