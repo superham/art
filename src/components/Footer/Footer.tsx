@@ -6,6 +6,7 @@ import { smScreen } from "../../constants/constants";
 import useWindowDimensions from "../../use/useWindowDimensions";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import { Typography } from "@mui/material";
 
 export default function Footer() {
   const { width } = useWindowDimensions();
@@ -64,21 +65,21 @@ export default function Footer() {
               )}
             </CardContent>
 
-            <div className='text'>
+            <Typography className='text' variant='body1'>
               Hi, I'm Shannon Ilg and I like to make art.
-            </div>
+            </Typography>
           </div>
           <CardContent>
-            <div>
+            <Typography variant='body1'>
               You can find more of my work on my Instagram or if you want to buy
               a print or request a commission you can find the links at the top
               of the page.
-            </div>
-
-            <div style={{ marginTop: "1rem" }}>
+            </Typography>
+            <br />
+            <Typography variant='body1'>
               Half of the proceeds are donated to charities focusing on
               conservation and the environment.
-            </div>
+            </Typography>
           </CardContent>
         </Card>
       </div>

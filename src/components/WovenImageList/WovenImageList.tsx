@@ -19,6 +19,14 @@ import InspectImage from "../InspectImage/InspectImage";
 import { useState, useEffect } from "react";
 import "./WovenImageList.css";
 import { smScreen, mdScreen } from "../../constants/constants";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { Typography } from "@mui/material";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: ["Roboto", "cursive"].join(","),
+  },
+});
 
 export default function WovenImageList() {
   const { width } = useWindowDimensions();
@@ -65,76 +73,79 @@ export default function WovenImageList() {
   // create a ref to the image list container for all images? no
 
   return (
-    <div className='image-list-container'>
-      <ImageList
-        sx={{
-          width: { imageListContainerWidth },
-          height: "100%",
-          zIndex: 1,
-          background: "white",
-        }}
-        variant='masonry'
-        cols={columnCount}
-        gap={16}
-      >
-        {itemData.map((item, index) => (
-          <ImageListItem
-            key={item.img}
-            className='list-item'
-            style={{ border: "1px black" }}
-          >
-            <img
-              src={item.img}
-              alt={item.title}
-              loading='lazy'
-              onClick={() =>
-                !isXS && handleClick({ img: item.img, title: item.title })
-              }
-              id={`image-${item.title}`}
-            />
-            {isXS && <div className='title-section'>{item.title}</div>}
-            {isXS && index !== itemData.length - 1 && (
-              <hr className='image-divider' />
-            )}
-            <Popover
-              id={"inspect-image-popover"}
-              open={selectedImage === item.img}
-              anchorEl={anchorEl}
-              BackdropProps={
-                selectedImage === item.img
-                  ? { sx: { backdropFilter: "blur(5px)" } }
-                  : {}
-              }
-              PaperProps={{
-                sx: {
-                  backgroundColor: "transparent",
-                  boxShadow: "none",
-                  height: "auto",
-                },
-              }}
-              onClose={handleClose}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: width - 16,
-                  height: "100%",
+    <ThemeProvider theme={theme}>
+      <div className='image-list-container'>
+        <ImageList
+          sx={{
+            width: { imageListContainerWidth },
+            height: "100%",
+            zIndex: 1,
+            background: "white",
+          }}
+          variant='masonry'
+          cols={columnCount}
+          gap={16}
+        >
+          {itemData.map((item, index) => (
+            <ImageListItem key={item.img} style={{ border: "1px black" }}>
+              <img
+                src={item.img}
+                alt={item.title}
+                loading='lazy'
+                onClick={() =>
+                  !isXS && handleClick({ img: item.img, title: item.title })
+                }
+                id={`image-${item.title}`}
+              />
+              {/* {isXS && <div className='title-section'>{item.title}</div>} */}
+              {isXS && (
+                <Typography className='title-section' variant='subtitle1'>
+                  {item.title}
+                </Typography>
+              )}
+              {isXS && index !== itemData.length - 1 && (
+                <hr className='image-divider' />
+              )}
+              <Popover
+                id={"inspect-image-popover"}
+                open={selectedImage === item.img}
+                anchorEl={anchorEl}
+                BackdropProps={
+                  selectedImage === item.img
+                    ? { sx: { backdropFilter: "blur(5px)" } }
+                    : {}
+                }
+                PaperProps={{
+                  sx: {
+                    backgroundColor: "transparent",
+                    boxShadow: "none",
+                    height: "auto",
+                  },
                 }}
-                onClick={handleClose}
+                onClose={handleClose}
               >
-                <InspectImage
-                  artImg={item.img}
-                  onClose={handleClose}
-                  artInfo={{ title: item.title }}
-                />
-              </div>
-            </Popover>
-          </ImageListItem>
-        ))}
-      </ImageList>
-    </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: width - 16,
+                    height: "100%",
+                  }}
+                  onClick={handleClose}
+                >
+                  <InspectImage
+                    artImg={item.img}
+                    onClose={handleClose}
+                    artInfo={{ title: item.title }}
+                  />
+                </div>
+              </Popover>
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </div>
+    </ThemeProvider>
   );
 }
 
