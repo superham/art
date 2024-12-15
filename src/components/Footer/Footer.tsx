@@ -2,18 +2,28 @@ import "./Footer.css";
 import { createTheme, ThemeProvider, Button } from "@mui/material";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import headShot from "../../assets/ilgHeadShot.jpg";
+import { smScreen } from "../../constants/constants";
+import useWindowDimensions from "../../use/useWindowDimensions";
 
 export default function Footer() {
+  const { width } = useWindowDimensions();
+
   const theme = createTheme({
     typography: {
       fontFamily: ["Roboto", "sans-serif"].join(","),
     },
   });
 
+  let isXS = false;
+
+  if (width <= smScreen) {
+    isXS = true;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <div className='footer-container'>
-        <hr className='footer-divider' />
+        {!isXS && <hr className='footer-divider' />}
         <Button
           variant='text'
           color='primary'
