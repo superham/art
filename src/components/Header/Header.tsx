@@ -24,7 +24,16 @@ export function Header() {
           </Typography>
 
           <div className='link-container'>
-            <Button variant='text' href='#about-section'>
+            <Button
+              variant='text'
+              onClick={() => {
+                window.scrollTo({
+                  top: document.body.scrollHeight,
+                  left: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
               About
             </Button>
 

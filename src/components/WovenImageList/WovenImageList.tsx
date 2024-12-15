@@ -17,6 +17,8 @@ import useWindowDimensions from "../../use/useWindowDimensions";
 import Popover from "@mui/material/Popover";
 import InspectImage from "../InspectImage/InspectImage";
 import { useState, useEffect } from "react";
+import "./WovenImageList.css";
+import { smScreen, mdScreen } from "../../constants/constants";
 
 export default function WovenImageList() {
   const { width } = useWindowDimensions();
@@ -35,10 +37,13 @@ export default function WovenImageList() {
     };
   }, []);
 
+  let isXS = false;
+
   let columnCount = 3;
-  if (width <= 500) {
+  if (width <= smScreen) {
     columnCount = 1;
-  } else if (width < 756) {
+    isXS = true;
+  } else if (width < mdScreen) {
     columnCount = 2;
   }
 
@@ -60,64 +65,70 @@ export default function WovenImageList() {
   // create a ref to the image list container for all images? no
 
   return (
-    <ImageList
-      sx={{
-        width: { imageListContainerWidth },
-        height: "100%",
-        zIndex: 1,
-        background: "white",
-      }}
-      variant='masonry'
-      cols={columnCount}
-      gap={16}
-    >
-      {itemData.map((item) => (
-        <ImageListItem key={item.img} style={{ border: "1px black" }}>
-          <img
-            src={item.img}
-            alt={item.title}
-            loading='lazy'
-            onClick={() => handleClick({ img: item.img, title: item.title })}
-            id={`image-${item.title}`}
-          />
-          <Popover
-            id={"inspect-image-popover"}
-            open={selectedImage === item.img}
-            anchorEl={anchorEl}
-            BackdropProps={
-              selectedImage === item.img
-                ? { sx: { backdropFilter: "blur(5px)" } }
-                : {}
-            }
-            PaperProps={{
-              sx: {
-                backgroundColor: "transparent",
-                boxShadow: "none",
-                height: "auto",
-              },
-            }}
-            onClose={handleClose}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: width - 16,
-                height: "100%",
+    <div className='image-list-container'>
+      <ImageList
+        sx={{
+          width: { imageListContainerWidth },
+          height: "100%",
+          zIndex: 1,
+          background: "white",
+        }}
+        variant='masonry'
+        cols={columnCount}
+        gap={16}
+      >
+        {itemData.map((item) => (
+          <ImageListItem key={item.img} style={{ border: "1px black" }}>
+            <img
+              src={item.img}
+              alt={item.title}
+              loading='lazy'
+              onClick={() =>
+                !isXS && handleClick({ img: item.img, title: item.title })
+              }
+              id={`image-${item.title}`}
+            />
+            {isXS && <div className='title-section'>{item.title}</div>}
+            {isXS && <hr className='image-divider' />}
+            <Popover
+              id={"inspect-image-popover"}
+              open={selectedImage === item.img}
+              anchorEl={anchorEl}
+              BackdropProps={
+                selectedImage === item.img
+                  ? { sx: { backdropFilter: "blur(5px)" } }
+                  : {}
+              }
+              PaperProps={{
+                sx: {
+                  backgroundColor: "transparent",
+                  boxShadow: "none",
+                  height: "auto",
+                },
               }}
-              onClick={handleClose}
+              onClose={handleClose}
             >
-              <InspectImage
-                artImg={item.img}
-                onClose={handleClose}
-                artInfo={{ title: item.title }}
-              />
-            </div>
-          </Popover>
-        </ImageListItem>
-      ))}
-    </ImageList>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: width - 16,
+                  height: "100%",
+                }}
+                onClick={handleClose}
+              >
+                <InspectImage
+                  artImg={item.img}
+                  onClose={handleClose}
+                  artInfo={{ title: item.title }}
+                />
+              </div>
+            </Popover>
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </div>
   );
 }
 

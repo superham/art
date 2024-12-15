@@ -1,0 +1,17 @@
+.image-list-container {
+  padding-left: 16px;
+  padding-right: 16px;
+  background-color: white;
+  z-index: 1;
+}
+
+.title-section {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.image-divider {
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
