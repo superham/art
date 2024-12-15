@@ -17,7 +17,9 @@
     "jsx": "react-jsx",
     "paths": {
       "@art/*": ["./public/art/*"],
-      "@use/*": ["./src/use/*"]
+      "@use/*": ["./src/use/*"],
+      "@components/*": ["./src/components/*"],
+      "@constants/*": ["./src/constants/*"]
     }
   },
   "include": ["src", "./src/index.d.ts"]

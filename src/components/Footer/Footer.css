@@ -4,12 +4,29 @@
   margin-bottom: 1rem;
 }
 
-.footer-text {
+.about-section {
   font-size: 1rem;
   color: #282c34;
   text-align: center;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
 
 .footer-divider {
-  width: 80%;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.headshot {
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+}
+
+.text {
+  margin-left: 3rem;
 }

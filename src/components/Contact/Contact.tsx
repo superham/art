@@ -80,7 +80,6 @@ export function Contact({ setIsPopoverOpen }: ContactProps) {
   const handleSubmit = () => {
     if (validateForm()) {
       // Handle form submission
-      console.log("Form submitted:", { name, email, phoneNumber, message });
       handleClose();
     }
   };
