@@ -39,7 +39,10 @@ export default function Footer() {
           <img src={headShot} alt='Shannon Ilg headshot' className='headshot' />
 
           <div className='text'>
-            Hi, I'm Shannon Ilg and I like to make art.
+            Hi, I'm Shannon Ilg and I like to make art. You can find more of my
+            work on my instagram or if you want to buy a print or request a
+            commission you can find the links at the top of the page. Half of
+            the proceeds are donated to charities focusing on conservation.
           </div>
         </div>
       </div>
