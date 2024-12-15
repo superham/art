@@ -1,6 +1,6 @@
 .image-list-container {
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 1rem;
+  padding-right: 1rem;
   background-color: white;
   z-index: 1;
 }
@@ -19,6 +19,6 @@
 
 @media screen and (max-width: 756px) {
   .list-item {
-    paddingtop: "1rem";
+    padding-top: "1rem";
   }
 }

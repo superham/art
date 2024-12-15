@@ -86,7 +86,7 @@ export default function WovenImageList() {
           cols={columnCount}
           gap={16}
         >
-          {itemData.map((item) => (
+          {itemData.map((item, index) => (
             <ImageListItem key={item.img} style={{ border: "1px black" }}>
               <img
                 src={item.img}
@@ -103,7 +103,9 @@ export default function WovenImageList() {
                   {item.title}
                 </Typography>
               )}
-              {isXS && <hr className='image-divider' />}
+              {isXS && index !== itemData.length - 1 && (
+                <hr className='image-divider' />
+              )}
               <Popover
                 id={"inspect-image-popover"}
                 open={selectedImage === item.img}
