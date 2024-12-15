@@ -41,4 +41,7 @@
   .text {
     margin-left: unset;
   }
+  .footer-container {
+    margin-top: unset;
+  }
 }
