@@ -4,6 +4,8 @@ import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp
 import headShot from "../../assets/ilgHeadShot.jpg";
 import { smScreen } from "../../constants/constants";
 import useWindowDimensions from "../../use/useWindowDimensions";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
 export default function Footer() {
   const { width } = useWindowDimensions();
@@ -23,7 +25,7 @@ export default function Footer() {
   return (
     <ThemeProvider theme={theme}>
       <div className='footer-container'>
-        {!isXS && <hr className='footer-divider' />}
+        <hr className='footer-divider' />
         <Button
           variant='text'
           color='primary'
@@ -35,16 +37,50 @@ export default function Footer() {
         >
           Back to Top
         </Button>
-        <div className='about-section' id='about-section'>
-          <img src={headShot} alt='Shannon Ilg headshot' className='headshot' />
+        <Card
+          sx={{
+            minWidth: "345px",
+            maxWidth: "600px",
+            margin: "auto",
+            marginTop: "2rem",
+            marginBottom: "2rem",
+            padding: "1rem",
+          }}
+        >
+          <div className='about-section' id='about-section'>
+            <CardContent>
+              {isXS ? (
+                <img
+                  src={headShot}
+                  alt='Shannon Ilg headshot'
+                  className='headshotXS'
+                />
+              ) : (
+                <img
+                  src={headShot}
+                  alt='Shannon Ilg headshot'
+                  className='headshot'
+                />
+              )}
+            </CardContent>
 
-          <div className='text'>
-            Hi, I'm Shannon Ilg and I like to make art. You can find more of my
-            work on my instagram or if you want to buy a print or request a
-            commission you can find the links at the top of the page. Half of
-            the proceeds are donated to charities focusing on conservation.
+            <div className='text'>
+              Hi, I'm Shannon Ilg and I like to make art.
+            </div>
           </div>
-        </div>
+          <CardContent>
+            <div>
+              You can find more of my work on my Instagram or if you want to buy
+              a print or request a commission you can find the links at the top
+              of the page.
+            </div>
+
+            <div style={{ marginTop: "1rem" }}>
+              Half of the proceeds are donated to charities focusing on
+              conservation and the environment.
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </ThemeProvider>
   );
