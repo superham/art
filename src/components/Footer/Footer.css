@@ -2,6 +2,8 @@
   width: 100%;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  z-index: 1;
+  background: white;
 }
 
 .about-section {
